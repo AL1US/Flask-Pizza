@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pizza.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # потом понять, что это
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.secret_key = 'f9c8307a7ec441477937cb35c6303b01c1f8b6b285bfa989c11bdc2eed2bd5b3' # Его так никогда нельзя хранить, всегда в других файлах
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
