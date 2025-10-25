@@ -1,0 +1,20 @@
+{% extends "base.html" %} 
+
+{% block title %} Профиль {% endblock %} 
+
+{% block body %}
+<div class="container text-center my-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>Ваш профиль</h3>
+        </div>
+        <div class="card-body">
+            <p><strong>Адрес кошелька:</strong></p>
+            <p class="text-muted">{{ address }}</p>
+            
+            <a href="/" class="btn btn-primary">На главную</a>
+            <a href="/logout" class="btn btn-secondary">Выйти</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
