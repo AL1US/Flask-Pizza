@@ -16,9 +16,9 @@
     </div>
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">     
       <li><a href="/" class="nav-link px-2">Главная</a></li>
-      <li><a href="/MyProfile/{{ session['user_id'] }}" class="nav-link px-2">Профиль</a></li>
+      <li><a href="/profile" class="nav-link px-2">Профиль</a></li>
       <li><a href="/Purchases" class="nav-link px-2">Корзина</a></li>
-      <li><a href="/create-pizza" class="nav-link px-2">Создать пиццу</a></li>
+      <li><a href="/setPizza" class="nav-link px-2">Создать пиццу</a></li>
     </ul>
     <div class="col-md-3 text-end">
       <a class="btn btn-danger" href="/logout">Выйти</a>
@@ -36,8 +36,8 @@
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">     
       <li><a href="/" class="nav-link px-2">Главная</a></li>
       <li><a href="/profile{{ session['user_id'] }}" class="nav-link px-2">Профиль</a></li>
-      <li><a href="/Purchases" class="nav-link px-2">Корзина</a></li>
-      <li><a href="/create-pizza" class="nav-link px-2">Создать пиццу</a></li>
+      <li><a href="/basket" class="nav-link px-2">Корзина</a></li>
+      <li><a href="/setPizza" class="nav-link px-2">Создать пиццу</a></li>
     </ul>
     <div class="col-md-3 text-end">
       <a type="button" class="btn btn-outline-primary me-2" href="/reg" >Регистрация</a>

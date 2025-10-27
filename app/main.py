@@ -1,24 +1,17 @@
 from flask import Flask, render_template, request, redirect, session
-from web3 import Web3
-from web3.exceptions import ContractLogicError
+from src.routers import pizza
+from src.web3_connect import contract
+from src.routers.pizza import pizza_app
 
 import json
+from web3.exceptions import ContractLogicError
 
 app = Flask(__name__)
+
+app.register_blueprint(pizza_app)
+
 app.secret_key = 'fa129c0e3c5bf9ed820cc0024697658ba5ab70331795c1fe21d7a5888be8'
 
-w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:8545"))
-
-if not w3.is_connected():
-    print("not connected")
-    
-with open("../blockchain/artifacts/contracts/contract.sol/Contract.json") as f:
-    config = json.load(f)
-
-contract = w3.eth.contract(
-    address=config["address"],
-    abi=config["abi"]
-)
 
 @app.route("/")
 def index():
@@ -68,6 +61,10 @@ def where_user():
         user_is_logged_in = True
         
     return dict(logged_in=user_is_logged_in, current_user=current_user)
+
+@app.errorhandler(404)
+def pageNotFount(error):
+  return render_template('page404.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
