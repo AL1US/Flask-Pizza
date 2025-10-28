@@ -18,6 +18,7 @@ contract Contract {
 
     struct pizzaStruct {
         uint256 id;
+        string url_img;
         string name;
         string description;
         uint256 price;
@@ -27,6 +28,7 @@ contract Contract {
 
      struct drincStruct {
          uint256 id;
+         string url_img;
          string name;
          string description;
          uint256 price;
@@ -83,10 +85,10 @@ contract Contract {
 
     // функции менеджера 
     //Создание, удаление пицц и просмотр пицц
-    function setPizza(string memory _name, string memory _description, uint256 _price) public onlyManager{
+    function setPizza(string memory _url_img ,string memory _name, string memory _description, uint256 _price) public onlyManager{
         uint ID = pizza.length + 1;
 
-        pizza.push(pizzaStruct(ID, _name, _description, _price));
+        pizza.push(pizzaStruct(ID, _url_img, _name, _description, _price));
     }
 
     function getPizza(uint256 _index) public view returns(pizzaStruct memory) {
@@ -100,10 +102,10 @@ contract Contract {
     }
 
     // Создание, удаление напитков и просмотр напитков
-    function setDrinc(string memory _name, string memory _description, uint256 _price) public onlyManager{
+    function setDrinc(string memory _url_img, string memory _name, string memory _description, uint256 _price) public onlyManager{
         uint ID = drinc.length + 1;
 
-        drinc.push(drincStruct(ID, _name, _description, _price));
+        drinc.push(drincStruct(ID, _url_img, _name, _description, _price));
     }    
 
     function getDrinc(uint256 _index) public view returns (drincStruct memory) {
