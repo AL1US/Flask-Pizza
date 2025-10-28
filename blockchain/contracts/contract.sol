@@ -263,6 +263,28 @@ contract Contract {
         roles[msg.sender] = Roles.user;
     }
 
+    function sign(address userAddress, string memory _password) public returns (bool) {
+    require(userAddress == msg.sender, "Address mismatch with sender");
+
+        if (userAddress == owner) {
+        return true;
+    }
+    
+    regStruct memory userData = registration[userAddress];
+        require(bytes(userData.password).length > 0, "there is no registered user with this address.");
+        require(compareStrings(userData.password, _password), "incorrect password");
+
+        if (roles[userAddress] == Roles.None) {
+            roles[userAddress] = Roles.user;
+        }
+
+        return true;
+        }
+
+    function compareStrings(string memory a, string memory b) internal pure returns (bool) {
+        return keccak256(abi.encodePacked(a)) == keccak256(abi.encodePacked(b));
+        }
+
     // Выход из аккаунта
     function exit() public onlyUser {
         roles[msg.sender] = Roles.None;

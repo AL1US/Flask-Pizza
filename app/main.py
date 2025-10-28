@@ -1,13 +1,9 @@
-from flask import Flask, render_template, request, redirect, session
-from src.web3_connect import contract
-from src.routers.pizza import pizza_app
+from flask import Flask, render_template, session
+from src.routers_products.pizza import pizza_app
 
-# from src.routers import pizza
+
 from src.users.role import role_app
 from src.users.registration import reg_app
-
-import json
-from web3.exceptions import ContractLogicError
 
 app = Flask(__name__)
 
@@ -24,6 +20,17 @@ def index():
 @app.errorhandler(404)
 def pageNotFount(error):
   return render_template('page404.html')
+
+@app.context_processor
+def where_user():
+    user_is_logged_in = False
+    current_user = None
+    
+    if "address" in session:
+        user_is_logged_in = True
+        current_user = session["address"]
+        
+    return dict(logged_in=user_is_logged_in, current_user=current_user)
 
 if __name__ == "__main__":
     app.run(debug=True)

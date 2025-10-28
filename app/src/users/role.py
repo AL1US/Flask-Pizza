@@ -1,6 +1,6 @@
 
 from src.web3_connect import contract
-from flask import Blueprint, Flask, redirect, render_template, request, session
+from flask import Blueprint, redirect, render_template, request, session
 from web3.exceptions import ContractLogicError
 
 role_app = Blueprint("role", __name__)
