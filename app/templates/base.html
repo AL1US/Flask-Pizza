@@ -11,7 +11,6 @@
     {% if logged_in %}
      <div class="col-md-3 mb-2 mb-md-0">
       <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-        </svg>
       </a>
     </div>
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">     
@@ -19,6 +18,7 @@
       <li><a href="/profile" class="nav-link px-2">Профиль</a></li>
       <li><a href="/Purchases" class="nav-link px-2">Корзина</a></li>
       <li><a href="/setPizza" class="nav-link px-2">Создать пиццу</a></li>
+      <li><a href="/setRole" class="nav-link px-2">Добавить роль</a></li>
     </ul>
     <div class="col-md-3 text-end">
       <a class="btn btn-danger" href="/logout">Выйти</a>
@@ -38,6 +38,7 @@
       <li><a href="/profile{{ session['user_id'] }}" class="nav-link px-2">Профиль</a></li>
       <li><a href="/basket" class="nav-link px-2">Корзина</a></li>
       <li><a href="/setPizza" class="nav-link px-2">Создать пиццу</a></li>
+      <li><a href="/setRole" class="nav-link px-2">Добавить роль</a></li>
     </ul>
     <div class="col-md-3 text-end">
       <a type="button" class="btn btn-outline-primary me-2" href="/reg" >Регистрация</a>
