@@ -49,6 +49,8 @@ def sign():
     return render_template("sign.html")
 
 
+
+
 @app.route("/profile")
 def profile():
     
@@ -63,3 +65,4 @@ def profile():
 def logout():
     session.clear()
     return redirect("/")
+

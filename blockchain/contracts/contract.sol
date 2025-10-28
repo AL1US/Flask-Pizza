@@ -95,6 +95,11 @@ contract Contract {
         return pizza[_index]; 
     }
 
+    function getAllPizzas() public view returns (pizzaStruct[] memory) {
+        return pizza;
+    }
+
+
     function delPizza(uint256 _element) public  onlyManager {
         require(_element < pizza.length, "There is no such element");  
         pizza[_element] = pizza[pizza.length -1];

@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session
 from src.routers_products.pizza import pizza_app
-
+from src.web3_connect import contract
 
 from src.users.role import role_app
 from src.users.registration import reg_app
@@ -15,7 +15,9 @@ app.register_blueprint(reg_app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+  pizza = contract.functions.getAllPizzas().call({"from": session.get("address")})
+
+  return render_template("index.html", pizza=pizza)
 
 @app.errorhandler(404)
 def pageNotFount(error):
