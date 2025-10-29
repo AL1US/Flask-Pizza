@@ -50,3 +50,22 @@ def add_to_basket():
                 return f"Ошибка: {e}"
     
     return render_template("add_to_basket.html")
+
+@app.route("/del_product", methods = ["GET", "POST"])
+def del_product():
+
+    pk = session.get("address")
+
+    if request.method == "POST":
+        try:
+            result = contract.functions.delPizza(
+            int(request.form.get("_index"))
+            ).transact({"from": pk})
+            return redirect("/")
+
+        except ContractLogicError as e:
+                return f"Ошибка: {e}"
+        except Exception as e:   
+                return f"Ошибка: {e}"
+    
+    return render_template("del_product.html")

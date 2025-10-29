@@ -1,4 +1,3 @@
-from statistics import quantiles
 from src.web3_connect import contract
 from flask import Blueprint, Flask, redirect, render_template, request, session
 from web3.exceptions import ContractLogicError
@@ -12,9 +11,9 @@ def basket():
     user_address = session.get("address")
 
     if user_address:
-        pizza = contract.functions.getAllPizzas().call({"from": user_address})
+        pizza = contract.functions.getBasket().call({"from": user_address})
     else:
-        pizza = contract.functions.getAllPizzas().call()
+        pizza = contract.functions.getBasket().call()
   
     pizza_list = []
   
