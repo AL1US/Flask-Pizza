@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, session
-from src.web3_connect import contract
+from src.web3_connect import contract, w3
 
 from web3.exceptions import ContractLogicError
 
@@ -54,10 +54,15 @@ def profile():
     
     if not session.get("address"):
         return redirect("/reg")
+
+    address = session.get("address")
     
+    balance_wei = w3.eth.get_balance(address)
+    balance_eth = w3.from_wei(balance_wei, 'ether')
+
     role = contract.functions.getRole().call({"from": session.get("address")})
     
-    return render_template("profile.html", address=session.get("address"), role=role)
+    return render_template("profile.html", address=session.get("address"), role=role, balance_eth = balance_eth)
 
 @app.route("/logout")
 def logout():

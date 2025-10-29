@@ -7,13 +7,15 @@
 {% block body %}
 <div class="container my-5">
     <div class="row">
+        <a type="button" class="btn btn-outline-primary me-2" href="/buy_all_basket" >Купить всю корзину</a>
         {% for el in pizza %}
         <div class="col-md-3 mb-4"> 
             <div class="card h-100">
                 <img src="{{ el.url_img }}" class="card-img-top" alt="Pizza" />
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ el.name }}</h5>
-                    <p class="card-text">{{ el.price }} рублей</p>
+                    <h5 class="card-title">{{ el.description }}</h5>
+                    <p class="card-text">{{ el.price }} wei</p>
                     <input type="submit" class="btn btn-success" value="Купить" />
                 </div>
             </div>
