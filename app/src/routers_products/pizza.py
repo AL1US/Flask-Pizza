@@ -1,3 +1,4 @@
+from statistics import quantiles
 from src.web3_connect import contract
 from flask import Blueprint, Flask, redirect, render_template, request, session
 from web3.exceptions import ContractLogicError
@@ -30,3 +31,22 @@ def setPizza():
             return f"Ошибка: {e}"
     
     return render_template("setPizza.html")
+
+@app.route("/add_to_basket", methods = ["GET", "POST"])
+def add_to_basket():
+    pk = session.get("address")
+    if request.method == "POST":
+        try:
+            result = contract.functions.setPizzaInBasket(
+            int(request.form.get("_id")),
+            int(request.form.get("_quanity"))
+            ).transact({"from": pk})
+            
+            return redirect("/basket")
+            
+        except ContractLogicError as e:
+                return f"Ошибка: {e}"
+        except Exception as e:   
+                return f"Ошибка: {e}"
+    
+    return render_template("add_to_basket.html")

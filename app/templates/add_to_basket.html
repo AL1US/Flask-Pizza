@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %} Добавление в корзину {% endblock %} {% block body %}
+<div class="container mt-5">
+  <h1>Добавить пиццу в корзину</h1>
+  <form method="post">
+    <input type="number" name="_id" id="_id" class="form-control" placeholder="Введите айди" /><br />
+    <input type="number" name="_quanity" id="_quanity" class="form-control" placeholder="Введите количество" /><br />
+    <input type="submit" class="btn btn-success" value="Добавить" />
+  </form>
+</div>
+
+{% endblock %}

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session
 from src.routers_products.pizza import pizza_app
+from src.routers_products.basket import basket_app
 from src.web3_connect import contract
 
 from src.users.role import role_app
@@ -12,12 +13,24 @@ app.secret_key = 'fa129c0e3c5bf9ed820cc0024697658ba5ab70331795c1fe21d7a5888be8'
 app.register_blueprint(pizza_app)
 app.register_blueprint(role_app)
 app.register_blueprint(reg_app)
+app.register_blueprint(basket_app)
 
 @app.route("/")
 def index():
   pizza = contract.functions.getAllPizzas().call({"from": session.get("address")})
+  
+  pizza_list = []
+  
+  for e in pizza:
+    pizza_list.append({
+      'id': e[0],
+      "url_img": e[1],
+      "name": e[2],
+      "description": e[3],
+      "price": e[4]
+    })
 
-  return render_template("index.html", pizza=pizza)
+  return render_template("index.html", pizza=pizza_list)
 
 @app.errorhandler(404)
 def pageNotFount(error):

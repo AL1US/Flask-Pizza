@@ -49,8 +49,6 @@ def sign():
     return render_template("sign.html")
 
 
-
-
 @app.route("/profile")
 def profile():
     

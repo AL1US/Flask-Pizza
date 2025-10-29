@@ -10,11 +10,12 @@
         {% for el in pizza %}
         <div class="col-md-3 mb-4"> 
             <div class="card h-100">
-                <img src="{{ el.img_pizza }}" class="card-img-top" alt="Pizza" />
+                <img src="{{ el.url_img }}" class="card-img-top" alt="Pizza" />
                 <div class="card-body text-center">
-                    <h5 class="card-title">{{ el.name_pizza }}</h5>
+                    <h5 class="card-title">{{ el.name }}</h5>
+                    <h5 class="card-title">{{ el.description }}</h5>
                     <p class="card-text">{{ el.price }} рублей</p>
-                    <a href="/about-pizza/{{ el.id }}" class="btn btn-warning">Детальнее</a>
+                    <a href="/basket" class="btn btn-warning">В корзину</a>
                 </div>
             </div>
         </div>

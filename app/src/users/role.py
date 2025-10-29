@@ -16,7 +16,7 @@ def setRole():
                 request.form.get("address_user"),
             ).transact({'from': public_key})
             
-            return redirect("/profile")
+            return render_template("setManager.html")
         
         except ContractLogicError as e:
             return f"Ошибка: {e}"
