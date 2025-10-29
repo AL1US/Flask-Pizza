@@ -8,17 +8,23 @@ app = basket_app
 
 @app.route("/basket")
 def basket():
-  pizza = contract.functions.getBasket().call({"from": session.get("address")})
-  
-  pizza_list = []
-  
-  for e in pizza:
-    pizza_list.append({
-      'id': e[0],
-      "url_img": e[1],
-      "name": e[2],
-      "description": e[3],
-      "price": e[4]
-    })
+    
+    user_address = session.get("address")
 
-  return render_template("basket.html", pizza=pizza_list)
+    if user_address:
+        pizza = contract.functions.getAllPizzas().call({"from": user_address})
+    else:
+        pizza = contract.functions.getAllPizzas().call()
+  
+    pizza_list = []
+  
+    for e in pizza:
+        pizza_list.append({
+        'id': e[0],
+        "url_img": e[1],
+        "name": e[2],
+        "description": e[3],
+        "price": e[4]
+        })
+
+    return render_template("basket.html", pizza=pizza_list)

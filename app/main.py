@@ -17,7 +17,13 @@ app.register_blueprint(basket_app)
 
 @app.route("/")
 def index():
-  pizza = contract.functions.getAllPizzas().call({"from": session.get("address")})
+  
+  user_address = session.get("address")
+  
+  if user_address:
+    pizza = contract.functions.getAllPizzas().call({"from": user_address})
+  else:
+    pizza = contract.functions.getAllPizzas().call()
   
   pizza_list = []
   
