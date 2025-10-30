@@ -32,8 +32,12 @@ def basket():
 def buy_all_basket():
     pk = session.get("address")
 
+    total_price = contract.functions.getBasketTotal(
+        user = session.get("address")
+        ).call({"from": pk})
+
     try:
-        result = contract.functions.buyBasket().transact({"from": pk})
+        result = contract.functions.buyBasket().transact({"from": pk, "value": total_price})
                 
         return redirect("/cheque")
             
@@ -61,3 +65,34 @@ def del_product():
                 return f"Ошибка: {e}"
     
     return render_template("del_basket.html")
+
+@app.route("/cheque")
+def cheque():
+    
+    pk = session.get("address")
+    
+    try:
+        if "address" in session:
+            cheque = contract.functions.getCheque().call({"from": pk})
+        else:
+            cheque = contract.functions.getCheque().call()
+    
+        cheque_list = []
+  
+        for array in cheque:
+            for e in array:
+                cheque_list.append({
+                    'id': e[0],
+                    "url_img": e[1],
+                    "name": e[2],
+                    "description": e[3],
+                    "price": e[4]
+                })
+
+        
+    except ContractLogicError as e:
+        return f"Ошибка: {e}"
+    except Exception as e:
+        return f"Ошибка: {e}"
+    
+    return render_template("cheque.html", cheque = cheque_list)
