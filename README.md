@@ -23,3 +23,11 @@ npx hardhat compile
 ```
 npx hardhat run --network localhost scripts/deploy.js
 ```
+
+При ошибках:
+
+Please install Hardhat locally using pnpm, npm or yarn, and try again.
+For more info go to https://hardhat.org/HHE22 or run Hardhat with --show-stack-traces
+```
+npm install --save-dev hardhat
+```
