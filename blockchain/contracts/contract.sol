@@ -24,16 +24,6 @@ contract Contract {
         uint256 price;
     }
 
-    // drincStruct[] public drinc;
-
-    //  struct drincStruct {
-    //      uint256 id;
-    //      string url_img;
-    //      string name;
-    //      string description;
-    //      uint256 price;
-    // }
-
     mapping (address => regStruct) public registration;
 
     struct regStruct {
@@ -47,15 +37,9 @@ contract Contract {
 
     struct basketStruct {
         uint256 id;
-        ProductType productType;
         string name;
         uint256 quantity;
         uint256 price;
-    }
-
-    enum ProductType {
-        pizza,
-        drinc
     }
 
     // Модификаторы
@@ -105,23 +89,6 @@ contract Contract {
         pizza[_element] = pizza[pizza.length -1];
         pizza.pop();
     }
-
-    // // Создание, удаление напитков и просмотр напитков
-    // function setDrinc(string memory _url_img, string memory _name, string memory _description, uint256 _price) public onlyManager{
-    //     uint ID = drinc.length + 1;
-
-    //     drinc.push(drincStruct(ID, _url_img, _name, _description, _price));
-    // }    
-
-    // function getDrinc(uint256 _index) public view returns (drincStruct memory) {
-    //     return drinc[_index];
-    // }
-
-    // function delDrinc(uint256 _element) public  onlyManager {
-    //     require(_element < drinc.length, "There is no such element");  
-    //     drinc[_element] = drinc[drinc.length -1];
-    //     drinc.pop();
-    // }
         
     // Функции юзера
 
@@ -150,7 +117,7 @@ contract Contract {
         uint256 indexInBasket;
 
         for (uint256 i = 0; i < basket[msg.sender].length; i++) {
-            if (basket[msg.sender][i].id == _index && basket[msg.sender][i].productType == ProductType.pizza) {
+            if (basket[msg.sender][i].id == _index ) {
                 alreadyInBasket = true;
                 indexInBasket = i;
                 break;
@@ -160,49 +127,9 @@ contract Contract {
         if (alreadyInBasket) {
             basket[msg.sender][indexInBasket].quantity += _quanity;
         } else {
-            basket[msg.sender].push(basketStruct(pizza[_index].id, ProductType.pizza, pizza[_index].name, _quanity, pizza[_index].price));
+            basket[msg.sender].push(basketStruct(pizza[_index].id, pizza[_index].name, _quanity, pizza[_index].price));
         }
-    }
-
-    // // Функции с напитком
-    // function buyDrinc(uint256 _id) public payable onlyUser {
-    //     require(msg.value >= drinc[_id].price, "not enough eth sent");
-    //     require(_id < drinc.length, "There is no such drinc");
-
-    //     uint priceDrinc = drinc[_id].price;
-
-    //     if (msg.value > priceDrinc) {
-    //         payable(msg.sender).transfer(msg.value - priceDrinc);
-    //     }
-
-    //     payable(owner).transfer(priceDrinc);
-    
-    // }
-
-    // // Добавить напиток в корзину
-    // function setDrincInBasket(uint256 _index, uint256 _quanity ) public onlyUser {
-    //     require(_index < drinc.length, "There is no such pizza");
-    //     require(_quanity > 0, "Quantity of drinc must be greater than 0");
-    //     require(_quanity < 100, "Quantity of drinc must be less than 100");
-
-    //     bool alreadyInBasket = false;
-    //     uint256 indexInBasket;
-
-    //     for (uint256 i = 0; i < basket[msg.sender].length; i++) {
-    //         if (basket[msg.sender][i].id == _index && basket[msg.sender][i].productType == ProductType.drinc) {
-    //             alreadyInBasket = true;
-    //             indexInBasket = i;
-    //             break;
-    //         }
-    //     }
-
-    //     if (alreadyInBasket) {
-    //         basket[msg.sender][indexInBasket].quantity += _quanity;
-    //     } else {
-
-    //     basket[msg.sender].push(basketStruct(drinc[_index].id, ProductType.drinc, drinc[_index].name, _quanity, drinc[_index].price));
-    //     }
-    // }
+    }   
 
     function getBasketTotal(address user) public view returns (uint256) {
         uint256 total = 0;
@@ -229,6 +156,9 @@ contract Contract {
         if (msg.value > totalPrice) {
             payable(msg.sender).transfer(msg.value - totalPrice);
         }
+
+
+
 
         cheque[msg.sender].push(basket[msg.sender]);
 
